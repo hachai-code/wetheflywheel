@@ -1,0 +1,141 @@
+{
+  "topic": "Skincare",
+  "title": "Skincare for men: the basics that actually work",
+  "dek": "Three products do most of the job. Here's the evidence-led starter routine — and the hype worth ignoring.",
+  "updated": "2026-09-02",
+  "reading_time_min": 7,
+  "bottom_line": [
+    "Morning: gentle cleanser (or just water), a plain moisturiser, then broad-spectrum SPF 30+ sunscreen — every day, cloudy days and indoors-by-a-window included.",
+    "Evening: gentle cleanser, moisturiser. Only once that's an automatic habit, add a low-strength retinoid 2–3 nights a week.",
+    "Change one thing at a time and give it 8–12 weeks before deciding whether it works.",
+    "Persistent or scarring acne, a new or changing mole, or anything painful → see a GP or dermatologist, not a forum."
+  ],
+  "sections": [
+    {
+      "heading": "The routine most people actually need",
+      "body": "Skincare marketing sells complexity. The evidence doesn't. For the large majority of people, three steps — cleanse, moisturise, and protect from the sun — deliver almost all of the realistic benefit. Everything beyond that is optimisation, and optimisation only pays off once the basics are consistent.\n\nConsistency beats potency. A simple routine you actually do every day outperforms an elaborate one you abandon in a fortnight.",
+      "tips": [
+        {
+          "claim": "A gentle cleanser once or twice a day is enough",
+          "detail": "Harsh foaming washes that leave skin feeling 'squeaky' strip the barrier and can drive more oil and irritation. A mild, fragrance-free cleanser is plenty; if your skin runs dry, plain water in the morning is fine.",
+          "evidence": "moderate",
+          "effort": "low",
+          "impact": "medium"
+        },
+        {
+          "claim": "Moisturiser is for every skin type, oily included",
+          "detail": "A basic moisturiser supports the skin barrier. Oily skin still benefits — a light gel or lotion won't 'clog' the way people fear. Boring and fragrance-free is the goal, not expensive.",
+          "evidence": "moderate",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+      "caution": null
+    },
+    {
+      "heading": "Sunscreen: the single highest-return habit",
+      "body": "If you do one thing, do this. Daily broad-spectrum sunscreen is the most evidence-backed step in any routine: it is the main lever on long-term skin ageing, uneven tone, and skin-cancer risk. Nothing else in skincare has this strength of evidence behind it.\n\nThe best sunscreen is the one you'll actually wear daily, so pick a texture you like. Most people apply far too little — aim for roughly a two-finger length across face and neck, and top it up if you're outdoors for hours.",
+      "tips": [
+        {
+          "claim": "Daily broad-spectrum SPF 30+ is the anti-ageing step that works",
+          "detail": "Regular sunscreen use measurably slows visible photoageing and lowers skin-cancer risk. This is about as close to settled as skincare science gets.",
+          "evidence": "strong",
+          "effort": "low",
+          "impact": "high"
+        },
+        {
+          "claim": "Apply enough, and reapply outdoors",
+          "detail": "Under-application is the most common mistake — a thin smear gives a fraction of the labelled protection. Two-finger length for face and neck; reapply every couple of hours in strong sun.",
+          "evidence": "strong",
+          "effort": "low",
+          "impact": "high"
+        }
+      ],
+      "caution": null
+    },
+    {
+      "heading": "Actives worth adding — carefully",
+      "body": "Once the basics are automatic, a few 'actives' have real evidence behind them. Add them one at a time, start low and slow, and expect results over months, not days.\n\nMore is not better. Stacking several strong actives at once is the fastest route to a wrecked barrier — the red, flaky, stinging skin that sends people right back to square one.",
+      "tips": [
+        {
+          "claim": "A retinoid is the best-evidenced 'anti-ageing' active",
+          "detail": "Topical retinoids (retinol over the counter, tretinoin on prescription) improve fine lines, texture and acne over months. Start 2–3 nights a week, buffer with moisturiser, and always pair with daytime sunscreen.",
+          "evidence": "strong",
+          "effort": "medium",
+          "impact": "high"
+        },
+        {
+          "claim": "Vitamin C and exfoliating acids help — modestly",
+          "detail": "A morning vitamin-C serum can support tone alongside sunscreen; leave-on AHA/BHA acids help texture and mild breakouts. Genuinely useful, not miraculous, and easy to overdo.",
+          "evidence": "moderate",
+          "effort": "medium",
+          "impact": "medium"
+        }
+      ],
+      "caution": "Retinoids should not be used in pregnancy, and strong actives can badly irritate if layered too fast. Introduce one active at a time. If your skin turns red, raw, or stinging, stop and let the barrier recover before restarting."
+    },
+    {
+      "heading": "Hype to ignore",
+      "body": "A lot of what's marketed to men — and pushed hard in looksmaxxing spaces — has little behind it. Spending here is mostly wasted money, and occasionally wasted skin.",
+      "tips": [
+        {
+          "claim": "10-step routines don't beat 3-step ones",
+          "detail": "Past cleanse–moisturise–protect (plus maybe one active), extra steps add cost and irritation risk, not results.",
+          "evidence": "moderate",
+          "effort": "low",
+          "impact": "low"
+        },
+        {
+          "claim": "'Pore-minimising' and 'detox' products don't do what they claim",
+          "detail": "Pore size is mostly genetic and can't be shrunk by a cleanser; skin doesn't 'detox' through a mask. These are marketing terms, not mechanisms.",
+          "evidence": "moderate",
+          "effort": "low",
+          "impact": "low"
+        },
+        {
+          "claim": "Collagen drinks and most beauty supplements won't fix your face",
+          "detail": "Evidence for ingestible-beauty products is weak and often industry-funded. That money is better spent on sunscreen and sleep.",
+          "evidence": "limited",
+          "effort": "low",
+          "impact": "low"
+        }
+      ],
+      "caution": null
+    },
+    {
+      "heading": "When to stop DIY-ing and see a professional",
+      "body": "Skincare has a ceiling, and some things need a clinician. Recognising that line is harm reduction, not defeat.\n\nForums and creators are not a substitute for a diagnosis. Prescription treatments for acne, rosacea, or persistent pigmentation are more effective than anything on a shop shelf, and a professional manages them safely.",
+      "tips": [
+        {
+          "claim": "See a GP or dermatologist for persistent or severe acne",
+          "detail": "Moderate-to-severe or scarring acne has effective prescription treatments. Getting on them early prevents permanent scarring — don't just wait it out.",
+          "evidence": "strong",
+          "effort": "medium",
+          "impact": "high"
+        },
+        {
+          "claim": "Get any new, changing, or unusual mole checked",
+          "detail": "Changes in size, shape or colour, or a spot that itches or bleeds, warrant a professional look. This is the one item on this page that can be genuinely serious.",
+          "evidence": "strong",
+          "effort": "low",
+          "impact": "high"
+        }
+      ],
+      "caution": "This guide is general information, not medical advice. For diagnosis or treatment see a qualified professional — especially for anything painful, rapidly changing, or affecting your wellbeing."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Systematic reviews of daily sunscreen use",
+      "note": "Consistent broad-spectrum use reduces photoageing and skin-cancer risk."
+    },
+    {
+      "label": "Dermatology consensus on topical retinoids",
+      "note": "Best-evidenced topical for photoageing and acne; introduce gradually."
+    },
+    {
+      "label": "Reviews of ingestible 'beauty' supplements",
+      "note": "Evidence is generally weak, small, or industry-funded."
+    }
+  ]
+}
