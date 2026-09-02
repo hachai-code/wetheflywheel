@@ -8,13 +8,17 @@ topic ─▶ generate ─▶ validate ─▶ publish ─▶ guide.html
           (agent)    (agent+gate)  (render)
 ```
 
-- **generate** — an OpenRouter model turns a topic into structured guide JSON
-  (sections, tips, each tip carrying an evidence level + effort/impact).
-- **validate** — a code-side schema check **and** a cheaper model reviewing for
-  unsafe advice, oversold evidence, and missing harm-reduction cautions. Blockers
-  send the draft back to `generate` once with the issues attached.
-- **publish** — deterministic JSON → HTML. Same renderer for the live page, the
-  Cloudflare Pages deploy, and the UI preview.
+Built on **Pydantic AI**: each step is a typed agent whose output is a Pydantic
+model, run against an OpenRouter model.
+
+- **generate** — a `pydantic_ai.Agent` with `output_type=Guide` turns a topic
+  into a validated `Guide` (sections, tips, each tip carrying an evidence level
+  + effort/impact). Structural validity is guaranteed by Pydantic.
+- **validate** — a second agent (`output_type=Report`) reviews for unsafe advice,
+  oversold evidence, and missing harm-reduction cautions. Blockers send the draft
+  back to `generate` once with the issues attached.
+- **publish** — deterministic `Guide` → HTML. Same renderer for the live page,
+  the Cloudflare Pages deploy, and the UI preview.
 
 ## Run
 
@@ -27,8 +31,9 @@ python pipeline.py "jawline"               # CLI: generate → validate → publ
 python pipeline.py --demo                  # offline self-check, no API key
 ```
 
-`--demo` runs the bundled `sample_guide.json` through the schema gate and the
-renderer and asserts both work — the smallest thing that fails if wiring breaks.
+`--demo` loads the bundled `sample_guide.json` through Pydantic validation and
+the renderer and asserts both work — no API key needed, and it only imports
+`pydantic` (not the agents), so it's the smallest thing that fails if wiring breaks.
 
 ## Config
 
@@ -53,11 +58,11 @@ otherwise `npx wrangler login` first.
 ## Layout
 
 ```
-schema.py            guide + report JSON schemas (shared)
-client.py            OpenRouter client + structured() helper
-steps/generate.py    step 1
-steps/validate.py    step 2 (the gate)
-steps/publish.py     step 3 (renderer; render_page / render_artifact)
+models.py            Pydantic models: Guide, Section, Tip, Report, Issue
+provider.py          shared OpenRouter model (OpenAIChatModel + OpenAIProvider)
+steps/generate.py    step 1 — Agent(output_type=Guide)
+steps/validate.py    step 2 — Agent(output_type=Report), the gate
+steps/publish.py     step 3 — renderer (render_page / render_artifact)
 pipeline.py          orchestrator + CLI
 app.py               Flask flow UI
 static/index.html    the UI

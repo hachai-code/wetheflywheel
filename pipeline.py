@@ -3,15 +3,15 @@
   python pipeline.py "skincare basics"   # live: needs OPENROUTER_API_KEY
   python pipeline.py --demo               # offline: sample -> validate -> publish
 """
-import json
 import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
+from models import Guide  # noqa: E402
 from steps.publish import render_page  # noqa: E402
-from steps.validate import validate    # noqa: E402
+from steps.validate import validate  # noqa: E402
 
 PUBLIC = os.path.join(HERE, "public")
 
@@ -19,7 +19,7 @@ PUBLIC = os.path.join(HERE, "public")
 def run(topic, use_model=True, max_attempts=2):
     """generate -> validate, with one repair retry on a blocking review.
 
-    Returns (guide, report). Warnings ship; blockers trigger a retry that feeds
+    Returns (Guide, Report). Warnings ship; blockers trigger a retry that feeds
     the issues back to the generator. Raises if blockers survive every attempt.
     """
     from steps.generate import generate
@@ -27,9 +27,9 @@ def run(topic, use_model=True, max_attempts=2):
     for _ in range(max_attempts):
         guide = generate(topic, feedback=feedback)
         report = validate(guide, use_model=use_model)
-        if report["passed"] or not any(i["severity"] == "blocker" for i in report["issues"]):
+        if report.passed or not any(i.severity == "blocker" for i in report.issues):
             return guide, report
-        feedback = [f'{i["where"]}: {i["message"]}' for i in report["issues"]]
+        feedback = [f"{i.where}: {i.message}" for i in report.issues]
     raise RuntimeError(f"validation gate failed after {max_attempts} attempts: {report}")
 
 
@@ -42,11 +42,11 @@ def publish(guide, out_dir=PUBLIC):
 
 
 def _demo():
-    """Offline check: sample guide -> schema-only validate -> publish. No API key."""
+    """Offline check: sample guide -> Pydantic validation -> publish. No API key."""
     with open(os.path.join(HERE, "sample_guide.json")) as fh:
-        guide = json.load(fh)
+        guide = Guide.model_validate_json(fh.read())  # this is the schema gate
     report = validate(guide, use_model=False)
-    assert report["passed"], f"sample must pass the schema gate: {report}"
+    assert report.passed, f"sample must pass the gate: {report}"
     path = publish(guide)
     assert os.path.getsize(path) > 2000, "rendered HTML looks empty"
     print(f"demo ok -> {path} ({os.path.getsize(path)} bytes)")
@@ -58,6 +58,6 @@ if __name__ == "__main__":
     elif len(sys.argv) > 1:
         guide, report = run(sys.argv[1])
         path = publish(guide)
-        print(f"published {sys.argv[1]!r} -> {path}\nreport: {json.dumps(report)}")
+        print(f"published {sys.argv[1]!r} -> {path}\nreport: {report.model_dump_json()}")
     else:
         print('usage: python pipeline.py "topic"  |  python pipeline.py --demo')

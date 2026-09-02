@@ -1,12 +1,12 @@
-"""Step 3 — publish: guide JSON -> HTML. Deterministic, no model call.
+"""Step 3 — publish: a Guide -> HTML. Deterministic, no model call.
 
 render_page(guide)      -> full standalone document (Cloudflare Pages, Flask preview).
-render_artifact(guide)  -> <title>/<style>/<link> + <article> only, for a claude.ai
-                           artifact wrapper (it supplies <!doctype>/<head>/<body>).
+render_artifact(guide)  -> <title>/<style>/<link> + <article> only, for embedding.
 """
 import html
-import json
 import sys
+
+from models import Guide
 
 EVIDENCE_LABEL = {
     "strong": "Strong evidence",
@@ -110,30 +110,29 @@ def _paras(text):
 
 
 def _tip(tip):
-    ev = tip["evidence"]
     return (f'<li class="tip">'
-            f'<p class="tip-claim">{html.escape(tip["claim"])}</p>'
-            f'<p class="tip-detail">{html.escape(tip["detail"])}</p>'
+            f'<p class="tip-claim">{html.escape(tip.claim)}</p>'
+            f'<p class="tip-detail">{html.escape(tip.detail)}</p>'
             f'<div class="chips">'
-            f'<span class="chip ev-{ev}">{EVIDENCE_LABEL[ev]}</span>'
-            f'<span class="chip chip-meta">Effort &middot; {html.escape(tip["effort"])}</span>'
-            f'<span class="chip chip-meta">Impact &middot; {html.escape(tip["impact"])}</span>'
+            f'<span class="chip ev-{tip.evidence}">{EVIDENCE_LABEL[tip.evidence]}</span>'
+            f'<span class="chip chip-meta">Effort &middot; {html.escape(tip.effort)}</span>'
+            f'<span class="chip chip-meta">Impact &middot; {html.escape(tip.impact)}</span>'
             f'</div></li>')
 
 
 def _section(section):
-    tips = "".join(_tip(t) for t in section["tips"])
+    tips = "".join(_tip(t) for t in section.tips)
     caution = ""
-    if section.get("caution"):
+    if section.caution:
         caution = (f'<aside class="caution">'
                    f'<span class="caution-tag">Harm reduction</span>'
-                   f'<p>{html.escape(section["caution"])}</p></aside>')
-    return (f'<section class="section"><h2>{html.escape(section["heading"])}</h2>'
-            f'{_paras(section["body"])}<ul class="tips">{tips}</ul>{caution}</section>')
+                   f'<p>{html.escape(section.caution)}</p></aside>')
+    return (f'<section class="section"><h2>{html.escape(section.heading)}</h2>'
+            f'{_paras(section.body)}<ul class="tips">{tips}</ul>{caution}</section>')
 
 
 def _head_bits(guide):
-    title = html.escape(guide["title"])
+    title = html.escape(guide.title)
     return (f'<title>{title}</title>\n'
             f'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
             f'<link rel="stylesheet" href="{FONTS}">\n'
@@ -141,20 +140,20 @@ def _head_bits(guide):
 
 
 def _body(guide):
-    steps = "".join(f"<li>{html.escape(s)}</li>" for s in guide["bottom_line"])
-    sections = "".join(_section(s) for s in guide["sections"])
+    steps = "".join(f"<li>{html.escape(s)}</li>" for s in guide.bottom_line)
+    sections = "".join(_section(s) for s in guide.sections)
     sources = "".join(
-        f'<li><span class="src-label">{html.escape(s["label"])}</span>'
-        f'<span class="src-note">{html.escape(s["note"])}</span></li>'
-        for s in guide["sources"])
+        f'<li><span class="src-label">{html.escape(s.label)}</span>'
+        f'<span class="src-note">{html.escape(s.note)}</span></li>'
+        for s in guide.sources)
     return (
         f'<article class="guide">'
         f'<header class="masthead">'
-        f'<p class="eyebrow">looksmaxxing.guide &middot; {html.escape(guide["topic"])}</p>'
-        f'<h1>{html.escape(guide["title"])}</h1>'
-        f'<p class="dek">{html.escape(guide["dek"])}</p>'
-        f'<p class="meta">Updated {html.escape(guide["updated"])} &middot; '
-        f'{guide["reading_time_min"]} min read &middot; Evidence-led</p>'
+        f'<p class="eyebrow">looksmaxxing.guide &middot; {html.escape(guide.topic)}</p>'
+        f'<h1>{html.escape(guide.title)}</h1>'
+        f'<p class="dek">{html.escape(guide.dek)}</p>'
+        f'<p class="meta">Updated {html.escape(guide.updated)} &middot; '
+        f'{guide.reading_time_min} min read &middot; Evidence-led</p>'
         f'</header>'
         f'<section class="bottomline"><h2 class="bl-title">The bottom line</h2>'
         f'<ol class="bl-steps">{steps}</ol></section>'
@@ -183,7 +182,7 @@ if __name__ == "__main__":
     if len(args) != 2:
         sys.exit("usage: python publish.py [--artifact] <guide.json> <out.html>")
     with open(args[0]) as fh:
-        guide = json.load(fh)
+        guide = Guide.model_validate_json(fh.read())
     render = render_artifact if "--artifact" in flags else render_page
     with open(args[1], "w") as fh:
         fh.write(render(guide))

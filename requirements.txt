@@ -1,2 +1,2 @@
-openai>=1.0
+pydantic-ai>=0.0.14
 flask>=3.0
